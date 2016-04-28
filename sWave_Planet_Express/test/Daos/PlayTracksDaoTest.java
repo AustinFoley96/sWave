@@ -189,22 +189,22 @@ public class PlayTracksDaoTest {
     /**
      * Test of moveOrderDown being valid, of class PlayTracksDao.
      */
-    @Test
-    public void testMoveOrderDownValid() {
-        instance.moveOrderDown(p2);
-        int result = p2.getPlaylistOrder();
-        int expResult = 1;
-        assertEquals(expResult, result);
-    }
+//    @Test
+//    public void testMoveOrderDownValid() {
+//        instance.moveOrderDown(p2);
+//        int result = p2.getPlaylistOrder();
+//        int expResult = 1;
+//        assertEquals(expResult, result);
+//    }
     
     /**
      * Test of cascadeOrderOnDown being invalid, of class PlayTracksDao.
      */
-    @Test
-    public void testMoveOrderDownInvalid() {
-        instance.moveOrderDown(p2);
-        int result = p2.getPlaylistOrder();
-        int expResult = 2;
-        assertNotEquals(expResult, result);
-    }
+//    @Test
+//    public void testMoveOrderDownInvalid() {
+//        instance.moveOrderDown(p2);
+//        int result = p2.getPlaylistOrder();
+//        int expResult = 2;
+//        assertNotEquals(expResult, result);
+//    }
 }
