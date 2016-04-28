@@ -676,3 +676,13 @@ li.chatMessageMe {
 #productInfo {
     margin-left: 220px;
 }
+
+div.msg {
+    padding: 10px;
+}
+
+#inlineRenderer {
+    width:  400px;
+    height: 400px;
+    float:  left;
+}

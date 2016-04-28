@@ -34,11 +34,4 @@ public class StreamCommand implements Command {
         return null;
     }
     
-    /*
-        Create a hash of the mp3 data and store it in database.
-        Use a hashmap to store songdata on the heap.
-        When starting new stream get song hash and see if its in the hashmap
-        before reading from DB.
-    */
-    
 }

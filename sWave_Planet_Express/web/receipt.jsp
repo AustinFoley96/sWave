@@ -20,11 +20,6 @@
         %>
     </head>
     <body>
-        <% if (request.getParameter("downloading") != null && request.getParameter("downloading").equals("yes")) {%>
-        <!-- There is no error here netbeans just doesn't like new goodness like the download attribute -->
-        <a id="downloader" download="<%=((Song)session.getAttribute("currentSong")).getTitle() + ".mp3"%>" href="<%=sWave.Server.domain + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></a>
-        <script>document.getElementById("downloader").click();</script>
-        <%}%>
         <%
         if (session.getAttribute("user") != null) {
             currentUser = ((User)session.getAttribute("user"));
@@ -38,10 +33,6 @@
                 <h1>Thank You <%=currentUser.getFname()%></h1>
                 <hr/>
                 <h5>You bought <%=theUltimateOrder.getMerchSize()%> Unique Merch items and <%=theUltimateOrder.getSongSize()%> Unique Songs worth a total of <%=f.format(theUltimateOrder.getTotal())%></h5>
-                <hr/>
-                <h3>Authorized Downloads</h3>
-                <h5>You have paid for the following tracks and are authorized to download them:</h5>
-                <strong>Warning:</strong> If you do not download these tracks now you will NOT have the opportunity to do so later.<br/><br/>
                 <%
                 SongDao dao = new SongDao();
                 for (CartItem c : (ArrayList<CartItem>)session.getAttribute("cart")) {

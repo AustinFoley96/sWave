@@ -57,11 +57,11 @@
         <!-- Import Macgril's set of CSS animations -->
         <link rel="stylesheet" type="text/css" href="macgril/css/animation.css"/>
         <!-- Import Macgril skin to apply -->
-        <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
+        <link id="skin1" rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
         <!-- Import sWave site specific CSS -->
         <link rel="stylesheet" type="text/css" href="layout/base.css"/>
         <!-- Import sWave site specific Macgril skin overrides -->
-        <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/base.css"/>
+        <link id="skin2" rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/base.css"/>
         <script src="macgril/js/dom.js"></script>
         <script src="macgril/js/io.js"></script>
         <script src="macgril/js/datetime.js"></script>
@@ -148,32 +148,32 @@
                         <label><%=messages.getString("cityVar")%>: </label><input class="text" type="text" name="city" placeholder="<%=messages.getString("cityVar")%>" value="<%=currentUser.getCity()%>"/><br/><br/>
                         <label><%=messages.getString("countyVar")%>: </label>
                         <select name="county">
-                            <option value="CW" <%if (currentUser.getCounty().equals("CW")) {%>selected<%}%>>Carlow</option>
-                            <option value="CN" <%if (currentUser.getCounty().equals("CN")) {%>selected<%}%>>Cavan</option>
-                            <option value="CL" <%if (currentUser.getCounty().equals("CL")) {%>selected<%}%>>Clare</option>
-                            <option value="C" <%if (currentUser.getCounty().equals("C")) {%>selected<%}%>>Cork</option>
-                            <option value="DL" <%if (currentUser.getCounty().equals("DL")) {%>selected<%}%>>Donegal</option>
-                            <option value="D" <%if (currentUser.getCounty().equals("D")) {%>selected<%}%>>Dublin</option>
-                            <option value="G" <%if (currentUser.getCounty().equals("G")) {%>selected<%}%>>Galway</option>
-                            <option value="K" <%if (currentUser.getCounty().equals("K")) {%>selected<%}%>>Kerry</option>
-                            <option value="KD" <%if (currentUser.getCounty().equals("KD")) {%>selected<%}%>>Kildare</option>
-                            <option value="KK" <%if (currentUser.getCounty().equals("KK")) {%>selected<%}%>>Kilkenny</option>
-                            <option value="LS" <%if (currentUser.getCounty().equals("LS")) {%>selected<%}%>>Laois</option>
-                            <option value="LM" <%if (currentUser.getCounty().equals("LM")) {%>selected<%}%>>Leitrim</option>
-                            <option value="LK" <%if (currentUser.getCounty().equals("LK")) {%>selected<%}%>>Limerick</option>
-                            <option value="LF" <%if (currentUser.getCounty().equals("LF")) {%>selected<%}%>>Longford</option>
-                            <option value="L" <%if (currentUser.getCounty().equals("L")) {%>selected<%}%>>Louth</option>
-                            <option value="M" <%if (currentUser.getCounty().equals("M")) {%>selected<%}%>>Mayo</option>
-                            <option value="MH" <%if (currentUser.getCounty().equals("MH")) {%>selected<%}%>>Meath</option>
-                            <option value="MO" <%if (currentUser.getCounty().equals("MO")) {%>selected<%}%>>Monaghan</option>
-                            <option value="O" <%if (currentUser.getCounty().equals("O")) {%>selected<%}%>>Offaly</option>
-                            <option value="R" <%if (currentUser.getCounty().equals("R")) {%>selected<%}%>>Roscommon</option>
-                            <option value="S" <%if (currentUser.getCounty().equals("S")) {%>selected<%}%>>Sligo</option>
-                            <option value="T" <%if (currentUser.getCounty().equals("T")) {%>selected<%}%>>Tipperary</option>
-                            <option value="WF" <%if (currentUser.getCounty().equals("WF")) {%>selected<%}%>>Waterford</option>
-                            <option value="WM" <%if (currentUser.getCounty().equals("WM")) {%>selected<%}%>>Westmeath</option>
-                            <option value="WX" <%if (currentUser.getCounty().equals("WX")) {%>selected<%}%>>Wexford</option>
-                            <option value="W" <%if (currentUser.getCounty().equals("W")) {%>selected<%}%>>Wicklow</option>
+                            <option value="CW" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("CW")) {%>selected<%}%>>Carlow</option>
+                            <option value="CN" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("CN")) {%>selected<%}%>>Cavan</option>
+                            <option value="CL" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("CL")) {%>selected<%}%>>Clare</option>
+                            <option value="C" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("C")) {%>selected<%}%>>Cork</option>
+                            <option value="DL" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("DL")) {%>selected<%}%>>Donegal</option>
+                            <option value="D" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("D")) {%>selected<%}%>>Dublin</option>
+                            <option value="G" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("G")) {%>selected<%}%>>Galway</option>
+                            <option value="K" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("K")) {%>selected<%}%>>Kerry</option>
+                            <option value="KD" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("KD")) {%>selected<%}%>>Kildare</option>
+                            <option value="KK" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("KK")) {%>selected<%}%>>Kilkenny</option>
+                            <option value="LS" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("LS")) {%>selected<%}%>>Laois</option>
+                            <option value="LM" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("LM")) {%>selected<%}%>>Leitrim</option>
+                            <option value="LK" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("LK")) {%>selected<%}%>>Limerick</option>
+                            <option value="LF" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("LF")) {%>selected<%}%>>Longford</option>
+                            <option value="L" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("L")) {%>selected<%}%>>Louth</option>
+                            <option value="M" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("M")) {%>selected<%}%>>Mayo</option>
+                            <option value="MH" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("MH")) {%>selected<%}%>>Meath</option>
+                            <option value="MO" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("MO")) {%>selected<%}%>>Monaghan</option>
+                            <option value="O" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("O")) {%>selected<%}%>>Offaly</option>
+                            <option value="R" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("R")) {%>selected<%}%>>Roscommon</option>
+                            <option value="S" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("S")) {%>selected<%}%>>Sligo</option>
+                            <option value="T" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("T")) {%>selected<%}%>>Tipperary</option>
+                            <option value="WF" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("WF")) {%>selected<%}%>>Waterford</option>
+                            <option value="WM" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("WM")) {%>selected<%}%>>Westmeath</option>
+                            <option value="WX" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("WX")) {%>selected<%}%>>Wexford</option>
+                            <option value="W" <%if (currentUser.getCounty() != null && currentUser.getCounty().equals("W")) {%>selected<%}%>>Wicklow</option>
                         </select>
                         <br/><br/>
                         <input class="button" type="submit" value="<%=messages.getString("updateDetailsVar")%>"/>
@@ -228,7 +228,11 @@
                             </table>
                         </li>
                 <% count++;}%></ul><%
-                } else if (request.getParameter("view").equals("messages")) {
+                } else if (request.getParameter("view").equals("messages")) {%>
+                <div id="midUnderlay" class="panel"></div>
+                <h1><%=messages.getString("messagesVar")%></h1>
+                <ul id="itemList">
+                <% 
                     for(Friend f : friends) {
 
                     if(f.getUserId() != currentUser.getUserId())
@@ -236,39 +240,41 @@
 
                     else
                         conversation = mdao.getConversation(f.getFriendId());
+                    
                     for(Message m : conversation) {
                         if(m.getSender() != currentUser.getUserId()) {
                             User u = udao.getUserById(m.getSender());
-                        %> 
-                    <ul>
-                        <li>
-                            <h3><%=messages.getString("sentFromVar")%> <%=u.getUsername()%><span><u><%=m.getDate()%></u></span></h3>
-                            <br/>
-                            <span>
-                                <%=m.getContent()%>
-                            </span>
-                            <br/><br/>
-                        </li>
-                    </ul>
-                    <%
-                              }
-                              else {
-                                  User u = udao.getUserById(m.getReceiver());
-                     %>
-                     <ul>
-                        <li>
-                            <h3><%=messages.getString("sentToVar")%> <%=u.getUsername()%><span><u><%=m.getDate()%></u></span></h3>
-                            <br/>
-                            <span>
-                                <%=m.getContent()%>
-                            </span>
-                            <br/><br/>
-                        </li>
-                    </ul>
-                      <%        }
-                          }
-                        }  
                     %>
+                        <li class="panel listing listingEven">
+                            <span class="songTitle"><%=messages.getString("sentFromVar")%> <%=u.getUsername()%></span><br/>
+                            <span class="songArtist"><u><%=m.getDate()%></u></span><br/><br/>
+                            <div class="msg">
+                                <%=m.getContent()%>
+                            </div>
+                        </li>
+                  <%} else {
+                        User u = udao.getUserById(m.getReceiver());%>
+                           <li class="panel listing">
+                                <span class="songTitle"><%=messages.getString("sentToVar")%> <%=u.getUsername()%></span><br/>
+                                <span class="songArtist"><u><%=m.getDate()%></u></span><br/><br/>
+                                <div class="msg">
+                                    <%=m.getContent()%>
+                                </div>
+                            </li>
+                    <%}
+                     }
+                    }%>
+                </ul>
+                <form action="UserActionServlet" method="POST">
+                    <input type="hidden" name="action" value="sendMessage"/>
+                    <select name="friendId">
+                        <%for (Friend f : friends) {%>
+                        <option value="<%=f.getUserId()%>"><%=udao.getUserById(f.getUserId()).getUsername()%></option>
+                        <%}%>
+                    </select>
+                    <textarea name="msg" placeholder="Type your Message Here"></textarea>
+                    <input type="submit" value="Send"/>
+                </form><br/><br/><br/>
                 <%} else if (request.getParameter("view").equals("tickets")) {
                     if (request.getParameter("ticketView") != null && request.getParameter("ticketView").equals("closed")) {%>
                         <h1><%=messages.getString("closedTicketsVar")%></h1>
@@ -400,25 +406,15 @@
                                 skins the selector might move around and create 
                                 a horrible experience.
                             -->
-                            <select name="skin" style="position:fixed; top: 80px; left: 220px;">
+                            <select name="skin" style="position:fixed; width:150px; height:30px; top: 80px; left: 220px;">
                                 <option onmouseover="previewSkin('swave')" <%if (currentUser.getSkin().toLowerCase().equals("swave")) {%>selected="selected"<%}%>>sWave</option>
                                 <option onmouseover="previewSkin('flat')" <%if (currentUser.getSkin().toLowerCase().equals("flat")) {%>selected="selected"<%}%>>Flat</option>
-                                <option onmouseover="previewSkin('flat_darkness')" <%if (currentUser.getSkin().toLowerCase().equals("flat_darkness")) {%>selected="selected"<%}%>>Flat Darkness</option>
-                                <option onmouseover="previewSkin('nova')" <%if (currentUser.getSkin().toLowerCase().equals("nova")) {%>selected="selected"<%}%>>Nova</option>
-                                <option onmouseover="previewSkin('quantum')" <%if (currentUser.getSkin().toLowerCase().equals("quantum")) {%>selected="selected"<%}%>>Quantum</option>
-                                <option onmouseover="previewSkin('evolved')" <%if (currentUser.getSkin().toLowerCase().equals("evolved")) {%>selected="selected"<%}%>>Evolved</option>
-                                <option onmouseover="previewSkin('legacy')" <%if (currentUser.getSkin().toLowerCase().equals("legacy")) {%>selected="selected"<%}%>>Legacy</option>
-                                <option onmouseover="previewSkin('shire')" <%if (currentUser.getSkin().toLowerCase().equals("shire")) {%>selected="selected"<%}%>>Shire</option>
-                                <option onmouseover="previewSkin('smart')" <%if (currentUser.getSkin().toLowerCase().equals("smart")) {%>selected="selected"<%}%>>sMart</option>
-                                <option onmouseover="previewSkin('smart++')" <%if (currentUser.getSkin().toLowerCase().equals("smar++")) {%>selected="selected"<%}%>>sMart++</option>
-                                <option onmouseover="previewSkin('1337')" <%if (currentUser.getSkin().toLowerCase().equals("1337")) {%>selected="selected"<%}%>>1337</option>
-                                <option onmouseover="previewSkin('9x')" <%if (currentUser.getSkin().toLowerCase().equals("9x")) {%>selected="selected"<%}%>>9x</option>
                             </select>
                                 <br/><br/>
                             <input class="button" type="submit" value="Apply"/><br/><br/>
                         </form>
                         <em>Your Skin Preference will stored in our database and maintained across machines.</em>
-                        <br/>
+                        <br/><br/>
                         <button onclick="clearlStore()">Clear Local Data</button>
                         <br/>
                     <%} else if (request.getParameter("view").equals("admin")) {
@@ -445,22 +441,5 @@
         <%=sWave.UI.footer%>
         <div id="notifier" class="panel"></div>
         <div id="wallpaper"></div>
-	<div id="chat">
-		<span id="chatHeader" onclick="showHideChat()">
-			<select onchange="fetchMessages(this.value)">
-                            <%for (Friend friendo : friends) {%>
-                                <option value="<%=friendo.getFriendId()%>"><%=udao.getUserById(friendo.getFriendId()).getUsername()%></option>
-                            <%}%>
-                        </select>
-		</span>
-		<div id="chatMessages">
-			<ul id="theMessages">
-                            
-			</ul>
-		</div>
-		<span id="chatFooter">
-			<input class="text" type="text" id="chatTextBox" placeholder="Type to Chat"/>
-		</span>
-	</div>
     </body>
 </html>

@@ -55,10 +55,12 @@
         <script src="macgril/js/datetime.js"></script>
         <script src="macgril/js/notifications.js"></script>
         <script src="js/three.min.js"></script>
-        <script src="js/sWaveAudioSystem.js"></script>
-        <script src="js/sWaveScripts.js"></script>
-        <script src="js/ajax_image_loader.js"></script>
-        <script src="js/ajax_streamer.js"></script>
+        <script src="js/three_js/MTLLoader.js"></script>
+        <script src="js/three_js/OBJMTLLoader.js"></script>
+        <script src="js/audio_system.js"></script>
+        <script src="js/scripts.js"></script>
+        <script src="js/image_loader.js"></script>
+        <script src="js/streamer.js"></script>
     </head>
     <body onload="<%if (currentUser != null) {%>loadUserPicture(<%=currentUser.getUserId()%>, $('userPic')); <%}%>resumePlay()">
         <header class="panel" id="topbar">
@@ -72,12 +74,27 @@
                 <input type="search" class="text" name="searchterm" placeholder="Search"/>
             </form>
             <%=sWave.Graphics.s_cart%>
-            <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
             <div id="userMenu" class="panel">
-                <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
+                <%if (currentUser != null) {%>
+                    <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a><br/><br/>
+                <%}%>
+                <a href="account.jsp?view=friends"><%=messages.getString("friendsVar")%></a><br/>
+                <a href="account.jsp?view=settings"><%=messages.getString("settingsVar")%></a><br/>
+                <form id="langForm" action="UserActionServlet" method="POST">
+                    <input type="hidden" name="action" value="updateDetails"/>
+                    <input type="hidden" name="refPage" value="product.jsp"/>
+                    <select name="lang" onchange="$('langForm').submit()">
+                        <option value="en" <%if (currentLocale.getLanguage().equals("en")) {%>selected<%}%>>English</option>
+                        <option value="fr" <%if (currentLocale.getLanguage().equals("fr")) {%>selected<%}%>>French</option>
+                        <option value="de" <%if (currentLocale.getLanguage().equals("de")) {%>selected<%}%>>German</option>
+                        <option value="it" <%if (currentLocale.getLanguage().equals("it")) {%>selected<%}%>>Italian</option>
+                        <option value="jp" <%if (currentLocale.getLanguage().equals("jp")) {%>selected<%}%>>Japanese</option>
+                        <option value="ru" <%if (currentLocale.getLanguage().equals("ru")) {%>selected<%}%>>Russian</option>
+                    </select>
+                </form>
                 <form id="logOutButton" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="logout"/>
-                    <input class="button" type="submit" value="Log Out"/>
+                    <input class="button" type="submit" value="<%=messages.getString("logoutVar")%>"/>
                 </form>
             </div>
         </header>
@@ -90,7 +107,55 @@
             <div id="midUnderlay" class="panel"></div>
             <%if (m != null) {
                 NumberFormat f = NumberFormat.getCurrencyInstance();%>
-                <img style="float:left;" width="200" height="200" src="images/merch/<%=m.getMerchId()%>.jpg" alt="Picture of <%=m.getTitle()%>"/>
+                <%if (m.getTitle().equals("Mug")) {%>
+                <div id="inlineRenderer"></div>
+                <script>
+                function renderInline() {
+				scene	  = new THREE.Scene();
+				container = $("inlineRenderer");
+
+				camera    = new THREE.PerspectiveCamera(45, 1, 1, 100);
+							camera.position.set(10, 8, 10);
+							camera.lookAt(scene.position);
+							scene.add(camera);
+
+				renderer  = new THREE.WebGLRenderer({alpha:true, antialias:true});
+							renderer.setSize(400, 400);
+							renderer.domElement.setAttribute("id","renderCanvas");
+							container.appendChild(renderer.domElement);
+
+				ThreeClock     = new THREE.Clock();
+
+				var loader = new THREE.OBJMTLLoader();
+				model = null;
+				loader.load("models/mug.obj", "models/mug.mtl", function(object) {object.position.set(3,0,2.2); object.scale.y = 2; object.scale.x = 2; object.scale.z = 2; model = object; addLighting();});
+                            }
+                            
+                            function addLighting() {
+                            light     = new THREE.DirectionalLight(0xFFFFFF, 0.75);
+                                        light.position.set(300, 300, 300);
+                                        scene.add(light);
+
+                            light2    = new THREE.DirectionalLight(0xFFFFFF, 0.8);
+                                        light2.position.set(-300, 300, -300);
+                                        scene.add(light2);
+                            
+                            scene.add(model);
+                            inlineAnimate();
+                        }
+
+			function inlineAnimate() {
+					delta           =  ThreeClock.getDelta();
+					model.rotation.y -= 0.02;
+					//OBJECT.rotation.y += 0.01;
+					setTimeout(requestAnimationFrame(inlineAnimate));
+					renderer.render(scene, camera);
+			}
+                            renderInline();
+                </script>
+                <%} else {%>
+                    <img style="float:left;" width="200" height="200" src="images/merch/<%=m.getMerchId()%>.jpg" alt="Picture of <%=m.getTitle()%>"/>
+                <%}%>
                 <div id="inlineRenderer">
                 </div>
                 <div id="productInfo">

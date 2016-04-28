@@ -28,7 +28,7 @@ public class User implements Serializable {
     private String  city;
     private String  county;
     private String  skin;
-    private String  langPref;
+    private String  langPref = "en";
     private boolean isAdmin;
 
     public User() {

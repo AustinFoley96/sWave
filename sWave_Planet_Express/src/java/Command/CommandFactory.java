@@ -89,6 +89,9 @@ public class CommandFactory {
         } else if ( action.equalsIgnoreCase("removeFriend") ) {
             //Editing a song
             command = new RemoveFriendCommand();
+        } else if ( action.equalsIgnoreCase("sendMessage") ) {
+            //Send a Message to a Friend
+            command = new SendMessageCommand();
         } else {
             command = new DummyCommand();
         }

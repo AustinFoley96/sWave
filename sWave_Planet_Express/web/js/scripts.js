@@ -7,7 +7,6 @@
 function previewSkin(skin) {
     $("skin1").href = "macgril/css/skins/" + skin + "/" + skin + ".css";
     $("skin2").href = "layout/skins/"      + skin + "/base.css";
-    $("skin3").href = "layout/skins/"      + skin + "/account.css";
 }
 
 function showSizes() {

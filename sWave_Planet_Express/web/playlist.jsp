@@ -93,29 +93,25 @@
             <%if (p != null) {
                 NumberFormat f = NumberFormat.getCurrencyInstance();%>
                 <h2><%=p.getTitle()%></h2>
+                <%if (songs.size() >= 9) {%>
+                        <div id="coverFlow">
+                            <%for (int i = 1; i <= 9; i++) {%>
+                                <img id="cover<%=i%>"/>
+                                <script>
+                                    loadArtwork(<%=songs.get(i - 1).getSongId()%>, $("cover<%=i%>"));
+                                </script>
+                            <%}%>
+                        </div>
+                    <%}%>
                 <ul>
                     <%for (Song s : p.getPlaylistContents()) {%>
                     <li class="panel listing songListing">
                         <div class="listingRight">
                             <form action="UserActionServlet" method="POST">
-                                <input type="hidden" name="action" value="moveSongInPlaylist"/>
-                                <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
-                                <input type="hidden" name="playlistid" value="<%=p.getPlaylistId()%>"/>
-                                <input type="hidden" name="direction" value="up"/>
-                                <input class="button" type="submit" value="Move Up"/>
-                            </form>
-                            <form action="UserActionServlet" method="POST">
-                                <input type="hidden" name="action" value="moveSongInPlaylist"/>
-                                <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
-                                <input type="hidden" name="playlistid" value="<%=p.getPlaylistId()%>"/>
-                                <input type="hidden" name="direction" value="down"/>
-                                <input class="button" type="submit" value="Move Down"/>
-                            </form>
-                            <form action="UserActionServlet" method="POST">
                                 <input type="hidden" name="action" value="deleteFromPlaylist"/>
                                 <input type="hidden" name="songId" value="<%=s.getSongId()%>"/>
                                 <input type="hidden" name="playlistId" value="<%=p.getPlaylistId()%>"/>
-                                <input class="button" type="submit" value="Remove"/>
+                                <input class="button danger" type="submit" value="Remove"/>
                             </form>
                         </div>
                         <span class="songTitle"><%=s.getTitle()%></span><br/>

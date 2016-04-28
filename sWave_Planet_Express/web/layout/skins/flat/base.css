@@ -1,363 +1,50 @@
-/* The general Look and Feel of sWave is determined by the skin file selected 
-   from macgril/css/skins/ NOT this file */
+/*Skin specific overrides for base.css*/
 
-            #topbar {
-                position: fixed;
-                top:      0px;
-                left:     0px;
-                width:    100%;
-                height:   60px;
-                padding:  0px;
-                z-index:  2;
-            }
-
-            #base {
-                position: fixed;
-                bottom:   0px;
-                left:     0px;
-                width:    100%;
-                height:   90px;
-                padding:  0px;
-                z-index:  2;
-            }
-
-            #midsection {
-                color:    #e3e3e3;
-                position: fixed;
-                left:     200px;
-                right:    200px;
-                top:      60px;
-                bottom:   90px;
-                padding:  0px;
-                z-index:  0;
-                padding:  20px;
-                overflow-y: scroll;
-                overflow-x: auto;
-            }
-
-            #left_sidebar {
-                position: fixed;
-                left:     0px;
-                top:      60px;
-                bottom:   90px;
-                width:    200px;
-                padding:  0px;
-                z-index:  1;
-            }
-
-            #right_sidebar {
-                position: fixed;
-                right:    0px;
-                top:      60px;
-                bottom:   90px;
-                width:    200px;
-                padding:  0px;
-                z-index:  1;
-            }
-
-            #ads {
-                border: none;
-                padding: 0px;
-                margin: 0px;
-                position: fixed;
-                bottom: 90px;
-                right: 0px;
-                width: 200px;
-                height: 200px;
-            }
-
-            #header_logo {
-            }
-
-            #header_right {
-                position: fixed;
-                top:      18px;
-                right:    20px;
-            }
-
-            #logOutButton {
-                position: fixed;
-                top:      19px;
-                right:    10px;
-            }
-
-            #searchBox {
-                position: fixed;
-                top:      20px;
-                right:    90px;
-            }
-
-            #searchBox input {
-                width: 120px;
-            }
-
-            #userNameLink {
-                position: fixed;
-                top:      21px;
-                right:    230px;
-            }
-
-            nav {
-                position: fixed;
-                top:      0px;
-                left:     200px;
-                height:   60px;
-            }
-
-            nav a {
-                display:       inline-block;
-                color:         #000;
-                height:        24px;
-                text-align:    center;
-                padding-left:  10px;
-                padding-right: 10px;
-                margin:        0px;
-                font-size:     24px;
-                padding-top:    14px;
-                padding-bottom: 22px;
-            }
-
-            nav a:hover {
-                background-color: rgba(255, 255, 255, 0.5);
-            }
-            
-            .songListing {
-                margin-top: 10px;
-                display:    block;
-                width:      100%;
-                height:     100px;
-                -moz-animation: subtle_fade_right 0.4s;
-            }
-            
-            .playing {
-                border-style: solid;
-                border-width: 1px;
-                border-color: #000;
-                box-shadow:   0px 0px 20px #fff;
-                -moz-transform: scale(1.02);
-            }
-            
-            td.actionButton {
-                width: 20px;
-            }
-            
-            td.artwork {
-                width:  110px;
-            }
-            
-            td.artist {
-                width: 33%;
-            }
-            
-            td.album {
-                width: 33%;
-            }
-            
-            img.artwork {
-                position:           absolute;
-                top:                0px;
-                left:               0px;
-                width:              100px;
-                height:             100px;
-                box-shadow:         0px 0px 5px;
-                border-right-style: solid;
-                border-width:       1px;
-            }
-
-            @-moz-keyframes slide_up {
-                0% {-moz-transform: translateY(200px);}
-                100% {-moz-transform: translateY(0px);}
-            }
-
-            @-moz-keyframes slide_down {
-                0% {-moz-transform: translateY(-200px);}
-                100% {-moz-transform: translateY(0px);}
-            }
-
-            @-moz-keyframes slide_left {
-                0% {-moz-transform: translateX(200px);}
-                100% {-moz-transform: translateX(0px);}
-            }
-
-            @-moz-keyframes slide_right {
-                0% {-moz-transform: translateX(-200px);}
-                100% {-moz-transform: translateX(0px);}
-            }
-            
-            @-moz-keyframes subtle_fade_right {
-                0% {-moz-transform: translateX(-20px); opacity: 0.0;}
-                100% {-moz-transform: translateX(0px); opacity: 1.0;}
-            }
-
-@keyframes fadeRight {
-    0% {
-        left:    0px;
-        opacity: 0.0;
-    }
-}
-
-@-moz-keyframes fadeRight {
-    0% {
-        left:    0px;
-        opacity: 0.0;
-    }
-}
-
-@-webkit-keyframes fadeRight {
-    0% {
-        left:    0px;
-        opacity: 0.0;
-    }
-}
-
-#progress {
-    position:         fixed;
-    bottom:           20px;
-    left:             12px;
-    width:            0px;
-    height:           7px;
-    border-radius:    5px;
-    background-color: #000;
-}
-
-#progressBG {
-    border-style:  solid;
-    border-width:  1px;
-    position:      fixed;
-    bottom:        18px;
-    left:          10px;
-    right:         10px;
-    height:        9px;
-    border-radius: 5px;
-}
-
-#scrubber {
-    border-radius: 20px;
-    left:          2px;
-    display:       none;
-    width:         20px;
-    height:        20px;
-    position:      fixed;
-    bottom:        3px;}
-
-#controls {
-    margin-left:  auto;
-    margin-right: auto;
-    width:        200px;
-    display:      block;
-    margin-top:   10px;
-}
-
-#controls img {
-    margin-left:  5px;
-    margin-right: 5px;
-}
-
-#trackTimer {
-    position:    fixed;
-    bottom:      30px;
-    right:       15px;
-}
-
-#playerStatus {
-    position:    fixed;
-    bottom:      30px;
-    left:        15px;
+body {
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
 #visualizer {
-    position: fixed;
-    background-color: rgba(0, 0, 0, 0.8);
-    bottom: 90px;
-    left: 0px;
-    width: 200px;
-    height: 200px;
+    background-color: transparent;
 }
 
-#newTicketForm {
-    display:           none;
-    animation:         expand 0.7s;
-    -moz-animation:    expand 0.7s;
-    -webkit-animation: expand 0.7s;
-}
-
-#ticketIssue {
-    width:  300px;
-    height: 200px;
-    margin-top: 10px;
+aside a:hover {
+    background-color: rgba(49, 146, 153, 0.1);
 }
 
 .currentPageLink {
-    text-decoration: underline;
+    background-color: rgba(49, 146, 153, 0.2);
 }
 
-ul.ticketList {
-    list-style-type: none;
-    margin: 0px;
-    padding:0px;
+a.currentPageNum {
+    background-color: rgba(49, 146, 153, 0.1);
 }
 
-li.ticket {
-    color: #000;
-    list-style-type: none;
-    margin-left: 0px;
-    margin-right: 0px;
-    margin-top: 30px;
-    box-shadow: 0px 0px 4px #000;
-    padding: 0px;
+#midSectionInside {
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
-h3.ticketHeader {
-    margin: 0px;
-    background-color: grey;
-    padding: 10px;
+nav a:hover {
+    background-color: rgba(49, 146, 153, 0.1);
 }
 
-aside h2 {
-    margin-left: 10px;
-    color: #000;
+.listingEven {
+    background-color: rgba(49, 146, 153, 0.1);
 }
 
-span.ticketHeaderRight {
-    float: right;
-    font-size: 14px;
-    font-weight: normal;
+#profileSidebar {
+    border-color:     #000;
+    background-color: transparent;
 }
 
-p.ticketIssue {
-    margin-left:   10px;
-    margin-right:  10px;
+.largeVisualizer {
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
-@-moz-keyframes glow {
-    0% {
-        box-shadow: 0px 0px 3px;
-    }
-
-    50% {
-        box-shadow: 0px 0px 10px;
-    }
-
-    100% {
-        box-shadow: 0px 0px 3px;
-    }
+button.danger {
+    background-color: rgba(227, 25, 44, 0.3);
 }
 
-@-moz-keyframes expand {
-    0% {
-        opacity: 0.0;
-        -moz-transform: translateY(-10px);
-    }
-    100% {
-        opacity: 1.0;
-        -moz-transform: translateY(0px);
-    }
-}
-
-#pauseButton1 {
-    display: none;
-}
-
-#pauseButton2 {
-    display: none;
+input.danger {
+    background-color: rgba(227, 25, 44, 0.3);
 }

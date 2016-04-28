@@ -101,7 +101,6 @@
             <p>
                 <%=messages.getString("introVar")%>
             </p>
-            <video id="promoVid" src="videos/promo.webm" width="640" height="480"></video>
         </div>
         <%=sWave.UI.footer%>
         <div id="notifier" class="panel"></div>

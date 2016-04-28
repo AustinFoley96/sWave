@@ -15,10 +15,12 @@
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=sWave.Server.DEFAULT_SKIN%>/base.css"/>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=sWave.Server.DEFAULT_SKIN%>/<%=sWave.Server.DEFAULT_SKIN%>.css"/>
         <link rel="stylesheet" type="text/css" href="layout/login.css"/>
+        <link rel="stylesheet" type="text/css" href="layout/base.css"/>
         <script type="text/javascript" src="macgril/js/dom.js"></script>
         <script type="text/javascript" src="macgril/js/validation.js"></script>
-        <script type="text/javascript" src="js/scripts.js"></script>
+        <script type="text/javascript" src="macgril/js/notifications.js"></script>
         <script type="text/javascript" src="js/validation.js"></script>
+        <script type="text/javascript" src="js/scripts.js"></script>
     </head>
     <body <%if (request.getParameter("failed") != null) {%>onload="quickShake('loginBox', false)"<%}%>>
 
@@ -71,5 +73,6 @@
             </form>
         </div>
         <div id="wallpaper"></div>
+        <div id="notifier" class="panel"></div>
     </body>
 </html>

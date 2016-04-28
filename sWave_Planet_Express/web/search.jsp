@@ -71,35 +71,49 @@
         <script src="macgril/js/datetime.js"></script>
         <script src="macgril/js/notifications.js"></script>
         <script src="js/three.min.js"></script>
-        <script src="js/sWaveAudioSystem.js"></script>
-        <script src="js/ajax_streamer.js"></script>
+        <script src="js/audio_system.js"></script>
+        <script src="js/streamer.js"></script>
+        <script src="js/scripts.js"></script>
+        <script src="js/image_loader.js"></script>
     </head>
     <body onload="loadUserPicture(<%=currentUser.getUserId()%>, $('userPic')); resumePlay()">
         <header class="panel" id="topbar">
             <%=sWave.Graphics.getLogo()%>
             <nav>
                 <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
-                <a href="playing.jsp">Music</a><a href="shop.jsp">Shop</a><a href="account.jsp">Account</a><a href="about.jsp">About</a>
+                <a href="playing.jsp"><%=messages.getString("musicNavVar")%></a><a href="shop.jsp"><%=messages.getString("shopNavVar")%></a><a href="account.jsp"><%=messages.getString("accountNavVar")%></a><a href="about.jsp"><%=messages.getString("aboutNavVar")%></a>
             </nav>
-            <div id="header_right">
-                <form id="searchBox" action="UserActionServlet" method="POST">
-                    <input type="hidden" name="action" value="search"/>
-                    <input type="search" class="text" name="searchterm" placeholder="Search"/>
-                </form>
+            <form id="searchBox" action="UserActionServlet" method="POST">
+                <input type="hidden" name="action" value="search"/>
+                <input type="search" class="text" name="searchterm" placeholder="<%=messages.getString("searchVar")%>"/>
+            </form>
+            <%=sWave.Graphics.s_cart%>
+            <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
+            
+            <div id="userMenu" class="panel">
                 <%if (currentUser != null) {%>
-                    <a id="userNameLink" href="account.jsp"><%=currentUser.getUsername()%></a>
-                    &#160;&#160;
-                    <form id="logOutButton" action="UserActionServlet" method="POST">
-                        <input type="hidden" name="action" value="logout"/>
-                        <input class="button" type="submit" value="Log Out"/>
-                    </form>
-                <%} else {
-                        response.sendRedirect("login.jsp?refer=search.jsp");
-                %>
-                    <!-- In case the redirect fails for any reason provide a link -->
-                    <a href="login.jsp">Log In</a>
+                    <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a><br/><br/>
                 <%}%>
+                <a href="account.jsp?view=friends"><%=messages.getString("friendsVar")%></a><br/>
+                <a href="account.jsp?view=settings"><%=messages.getString("settingsVar")%></a><br/>
+                <form id="langForm" action="UserActionServlet" method="POST">
+                    <input type="hidden" name="action" value="updateDetails"/>
+                    <input type="hidden" name="refPage" value="search.jsp"/>
+                    <select name="lang" onchange="$('langForm').submit()">
+                        <option value="en" <%if (currentLocale.getLanguage().equals("en")) {%>selected<%}%>>English</option>
+                        <option value="fr" <%if (currentLocale.getLanguage().equals("fr")) {%>selected<%}%>>French</option>
+                        <option value="de" <%if (currentLocale.getLanguage().equals("de")) {%>selected<%}%>>German</option>
+                        <option value="it" <%if (currentLocale.getLanguage().equals("it")) {%>selected<%}%>>Italian</option>
+                        <option value="jp" <%if (currentLocale.getLanguage().equals("jp")) {%>selected<%}%>>Japanese</option>
+                        <option value="ru" <%if (currentLocale.getLanguage().equals("ru")) {%>selected<%}%>>Russian</option>
+                    </select>
+                </form>
+                <form id="logOutButton" action="UserActionServlet" method="POST">
+                    <input type="hidden" name="action" value="logout"/>
+                    <input class="button" type="submit" value="<%=messages.getString("logoutVar")%>"/>
+                </form>
             </div>
+            
         </header>
         <aside class="panel" id="left_sidebar">
             <div id="visualizer"></div>
@@ -127,12 +141,6 @@
                                     <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
                                     <input type="hidden" name="price" value="<%=s.getPrice()%>"/>
                                     <input class="button" type="submit" value="Add to Cart"/>
-                                </form>
-                            </td>
-                            <td><form action="UserActionServlet" method="POST">
-                                    <input type="hidden" name="action" value="stream"/>
-                                    <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
-                                    <input class="button" type="submit" value="Play"/>
                                 </form>
                             </td>
                         </tr>
@@ -163,30 +171,32 @@
                         <%if (DEBUG) {%>
                             <td><%=u.getUserId()%></td>
                         <%}%>
-                            <td><%=u.getUsername()%></td>
+                        <td><%=u.getUsername()%></td>
+                        <td>
                         <%
-                        fnd = new Friend(currentUser.getUserId(), u.getUserId());
-                        if (friends.contains(fnd) && !pending.contains(fnd)) {%>
-                            <form action="UserActionServlet" method="POST">
-                                <input type="hidden" name="action" value="removeFriend"/>
-                                <input type="hidden" name="friendId" value="<%=u.getUserId()%>"/>
-                                <input class="button danger" type="submit" value="Unfriend"/>
-                            </form>        
-                        <%} else if (!pending.contains(fnd)) {%>
-                            <form action="UserActionServlet" method="POST">
-                                <input type="hidden" name="action" value="requestFriend"/>
-                                <input type="hidden" name="friendId" value="<%=u.getUserId()%>"/>
-                                <input class="button" type="submit" value="Befriend"/>
-                            </form>
-                        <%} else if (friends.contains(fnd) && friends.get(friends.indexOf(fnd)).getFriendId() == currentUser.getUserId()) {%>
-                            <form action="UserActionServlet" method="POST">
-                                <input type="hidden" name="action" value="confirmFriend"/>
-                                <input type="hidden" name="friendId" value="<%=u.getUserId()%>"/>
-                                <input class="button" type="submit" value="Accept"/>
-                            </form>
-                        <%} else {%>
-                            Pending
-                        <%}%>
+                            fnd = new Friend(currentUser.getUserId(), u.getUserId());
+                            if (friends.contains(fnd) && !pending.contains(fnd)) {%>
+                                <form action="UserActionServlet" method="POST">
+                                    <input type="hidden" name="action" value="removeFriend"/>
+                                    <input type="hidden" name="friendId" value="<%=u.getUserId()%>"/>
+                                    <input class="button danger" type="submit" value="Unfriend"/>
+                                </form>
+                            <%} else if (!pending.contains(fnd)) {%>
+                                <form action="UserActionServlet" method="POST">
+                                    <input type="hidden" name="action" value="requestFriend"/>
+                                    <input type="hidden" name="friendId" value="<%=u.getUserId()%>"/>
+                                    <input class="button" type="submit" value="Befriend"/>
+                                </form>
+                            <%} else if (friends.contains(fnd) && friends.get(friends.indexOf(fnd)).getFriendId() == currentUser.getUserId()) {%>
+                                <form action="UserActionServlet" method="POST">
+                                    <input type="hidden" name="action" value="confirmFriend"/>
+                                    <input type="hidden" name="friendId" value="<%=u.getUserId()%>"/>
+                                    <input class="button" type="submit" value="Accept"/>
+                                </form>
+                            <%} else {%>
+                                Pending
+                            <%}%>
+                        </td>
                     </tr>
                 <%}%>
                 </table>

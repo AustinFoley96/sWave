@@ -32,7 +32,7 @@ CREATE TABLE USERS (
     ADD2       VARCHAR(30),
     CITY       VARCHAR(20),
     COUNTY     ENUM('CW', 'CN', 'CL', 'C', 'DL', 'D', 'G', 'K', 'KD', 'KK', 'LS', 'LM', 'LK', 'LF', 'L', 'M', 'MH', 'MO', 'O', 'R', 'S', 'T', 'WF', 'WM', 'WX', 'W'),
-    SKIN       ENUM('swave', 'flat', 'flat darkness', 'nova', 'quantum', 'evolved', 'legacy', 'shire', 'smart', 'smart++', '1337', '9x') DEFAULT 'swave' NOT NULL,
+    SKIN       ENUM('swave', 'flat') DEFAULT 'swave' NOT NULL,
     LANGPREF   ENUM('en', 'fr', 'de', 'it', 'jp', 'ru') DEFAULT 'en' NOT NULL,
     PICTURE    BLOB,
     ADMIN      BOOLEAN   NOT NULL DEFAULT false,
@@ -161,7 +161,7 @@ CREATE TABLE PLAYTRACKS (
 
 INSERT INTO USERS VALUES (-1, "appelman", "ceo@banana.com", "Steev", "Jubs", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "1 hello", "Some Street", "New Yorko", "CN", "flat", "en", null, false);
 INSERT INTO USERS VALUES (-2, "dj_man", "admin@swave.com", "DJ", "sWave", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "kek", "lel", "Dublin", "K", "swave", "jp", null, true);
-INSERT INTO USERS VALUES (1, "colonelPanic", "m'lady@neckbeard.com", "Todd", "Beardsley", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "The Basement", "Moms House", "Neo Tokyo", "D", "1337", "jp", null, false);
+INSERT INTO USERS VALUES (1, "colonelPanic", "m'lady@neckbeard.com", "Todd", "Beardsley", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "The Basement", "Moms House", "Neo Tokyo", "D", "swave", "jp", null, false);
 INSERT INTO USERS VALUES (2, "hereComesDaPane", "ceo@macrohard.com", "Gill", "Bates", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "23 unhello", "Other Street", "South Cali", "CN", "flat", "ru", null, false);
 INSERT INTO USERS VALUES (3, "croak&dagger", "feels@goodman.com", "Pepe", "Frog", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "Smackdown Hotel", "Jabroni Drive", "Know Your Role Boulevard", "CN", "flat", "it", null, false);
 INSERT INTO USERS VALUES (4, "cymbolic", "widerthan@mile.com", "Moon", "River", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "Round The Bend", "Rainbows End", "Mississippi", "C", "flat", "fr", null, false);
