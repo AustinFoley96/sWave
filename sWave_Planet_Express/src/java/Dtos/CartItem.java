@@ -3,7 +3,7 @@ package Dtos;
 import java.io.Serializable;
 
 /**
- *
+ * This CartItem class is used for looping through Items in the Cart
  * @author Austin
  */
 public class CartItem implements Serializable {
@@ -103,10 +103,18 @@ public class CartItem implements Serializable {
         this.price = price;
     }
 
+    /**
+     * Getting the custom image for the cart item
+     * @return the custom image for the cart item
+     */
     public byte[] getCustImg() {
         return custimg;
     }
 
+    /**
+     * Setting the custom image for the cart item
+     * @param custimg The new custom image of the cart item
+     */
     public void setCustImg(byte[] custimg) {
         this.custimg = custimg;
     }

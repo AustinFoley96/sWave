@@ -42,7 +42,7 @@ public class RegisterCommand implements Command {
         if (email != null && !email.isEmpty() && username != null && !username.isEmpty() && ud.checkDetails(email, username) == -5 && password != null && !password.isEmpty() && fname != null && !fname.isEmpty() && lname != null && !lname.isEmpty()) {
             //Make the user registering
             password             = ms.hash(password.toCharArray());
-            User userRegistering = new User(email, password, username, fname, lname, add1, add2, city, county, skin, "en", false);
+            User userRegistering = new User(email, password, username, fname, lname, add1, add2, city, county, skin, "en", isAdmin);
             int check            = ud.register(userRegistering);
 
             //If registering was successful log the user in
