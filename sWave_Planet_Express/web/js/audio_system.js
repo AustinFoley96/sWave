@@ -110,15 +110,15 @@ function listenForEvents() {
             }
         }
         else if ((event.which === 39) || (event.keyCode === 39)) {
-            //Don't perform the action if user types the key in an input field
-            if (!document.activeElement.toString().contains("HTMLInputElement")) {
+            //Don't perform the action if user types the key in an input field and don't interfere with cover flow
+            if (!document.activeElement.toString().contains("HTMLInputElement") && $("coverFlow") === undefined) {
                 event.preventDefault();
                 seek(player, player.currentTime + 10);
             }
         }
         else if ((event.which === 37) || (event.keyCode === 37)) {
-            //Don't perform the action if user types the key in an input field
-            if (!document.activeElement.toString().contains("HTMLInputElement")) {
+            //Don't perform the action if user types the key in an input field and don't interfere with cover flow
+            if (!document.activeElement.toString().contains("HTMLInputElement") && $("coverFlow") === undefined) {
                 event.preventDefault();
                 seek(player, player.currentTime - 10);
             }

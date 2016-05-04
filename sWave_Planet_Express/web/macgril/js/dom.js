@@ -12,7 +12,7 @@
     You should have received a copy of the GNU General Public License
     along with Macgril. If not, see <http://www.gnu.org/licenses/>
 */
-
+/*
 function $(name) {
     var id = document.getElementById(name);
     if ((id !== null) && (id !== undefined))
@@ -40,6 +40,13 @@ function $(name) {
         }
     }
     return null;
+}*/
+
+function $(name) {
+    var id = document.getElementById(name);
+    if ((id !== null) && (id !== undefined))
+        return id;
+    else return undefined;
 }
 
 function generate(x, y, z) {

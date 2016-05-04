@@ -452,12 +452,11 @@ ul {
 
 #addToPlaylist {
     position:   fixed;
-    width:      200px;
-    height:     100px;
     left:       calc(50% - 100px);
     top:        calc(50% - 50px);
     z-index:    20;
     display:    none;
+    padding:    10px;
     -moz-animation: expand 0.6s;
 }
 

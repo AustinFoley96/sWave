@@ -108,7 +108,7 @@
                 <form id="createPlaylistForm" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="createPlaylist"/>
                     <label><%=messages.getString("newPlaylistVar")%>: </label>
-                    <input required type="text" class="text" name="playlistTitle" placeholder="<%=messages.getString("playlistTitleVar")%>)"/>
+                    <input required type="text" class="text" name="playlistTitle" placeholder="<%=messages.getString("playlistTitleVar")%>"/>
                     <input class="button" type="submit" value="<%=messages.getString("createVar")%>"/>
                 </form>
             </div>

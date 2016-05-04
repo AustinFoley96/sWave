@@ -190,18 +190,19 @@
         <%=sWave.UI.footer%>
         <div id="overlay" onclick="this.style.display='none'; $('addToPlaylist').style.display='none';"></div>
         <div id="addToPlaylist" class="panel">
+            <h3>Add to Playlist</h3>
             <form action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="addSongToPlaylist"/>
                 <input id="songId" type="hidden" name="songId"/>
                 <label>Playlist: </label> 
-                <select name="playlistId">
+                <select style="margin-left:10px;" name="playlistId">
                     <%
                         PlaylistDao playDao = new PlaylistDao();
                         for (Playlist p : playDao.getUserPlaylists(currentUser.getUserId())) {%>
                             <option value="<%=p.getPlaylistId()%>"><%=p.getTitle()%></option>
                         <%}%>
-                </select><br/>
-                <input class="button" type="submit" value="Add"/>
+                </select><br/><br/>
+                <input style="float:right;" class="button" type="submit" value="Add"/>
             </form>
         </div>
         <div id="notifier" class="panel"></div>
