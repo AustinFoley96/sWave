@@ -231,6 +231,17 @@
                 } else if (request.getParameter("view").equals("messages")) {%>
                 <div id="midUnderlay" class="panel"></div>
                 <h1><%=messages.getString("messagesVar")%></h1>
+                <form action="UserActionServlet" method="POST">
+                    <input type="hidden" name="action" value="sendMessage"/>
+                    <select name="friendId">
+                        <%for (Friend f : friends) {%>
+                        <option value="<%=f.getUserId()%>"><%=udao.getUserById(f.getUserId()).getUsername()%></option>
+                        <%}%>
+                    </select>
+                    <textarea style="height:100px;" name="msg" placeholder="Type your Message Here"></textarea>
+                    <br/><br/>
+                    <input type="submit" value="Send"/>
+                </form><br/>
                 <ul id="itemList">
                 <% 
                     for(Friend f : friends) {
@@ -265,16 +276,6 @@
                      }
                     }%>
                 </ul>
-                <form action="UserActionServlet" method="POST">
-                    <input type="hidden" name="action" value="sendMessage"/>
-                    <select name="friendId">
-                        <%for (Friend f : friends) {%>
-                        <option value="<%=f.getUserId()%>"><%=udao.getUserById(f.getUserId()).getUsername()%></option>
-                        <%}%>
-                    </select>
-                    <textarea name="msg" placeholder="Type your Message Here"></textarea>
-                    <input type="submit" value="Send"/>
-                </form><br/><br/><br/>
                 <%} else if (request.getParameter("view").equals("tickets")) {
                     if (request.getParameter("ticketView") != null && request.getParameter("ticketView").equals("closed")) {%>
                         <h1><%=messages.getString("closedTicketsVar")%></h1>
@@ -340,7 +341,7 @@
                         <h1>Friends</h1>
                         <h3>Requests</h3>
                         <%if (pending.size() == 0) {%>
-                            <h3>Nobody wants to be your Friend</h3>
+                            <h3>Nobody wants to be your Friend :^(</h3>
                         <%} else {%>
                             <ul>
                                 <%for (Friend f : pending) {%>
@@ -365,7 +366,8 @@
                         <%if (friends.size() == 0) {%>
                                 <h3>You have yet to discover the magic of friendship :^(</h3>
                         <%} else {%>
-                        <ul>
+                        <h3>Current m9s</h3>
+                        <ul style="padding-bottom:40px;">
                             <%for (Friend f : friends) {%>
                                 <%if (f.getStatus() == 'c') {%>
                                     <li class="panel listing songListing">

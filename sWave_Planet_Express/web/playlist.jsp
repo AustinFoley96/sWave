@@ -77,10 +77,24 @@
             <%=sWave.Graphics.s_cart%>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
             <div id="userMenu" class="panel">
-                <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
+                <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a><br/><br/>
+                <a href="account.jsp?view=friends"><%=messages.getString("friendsVar")%></a><br/>
+                <a href="account.jsp?view=settings"><%=messages.getString("settingsVar")%></a><br/>
+                <form id="langForm" action="UserActionServlet" method="POST">
+                    <input type="hidden" name="action" value="updateDetails"/>
+                    <input type="hidden" name="refPage" value="playlists.jsp"/>
+                    <select name="lang" onchange="$('langForm').submit()">
+                        <option value="en" <%if (currentLocale.getLanguage().equals("en")) {%>selected<%}%>>English</option>
+                        <option value="fr" <%if (currentLocale.getLanguage().equals("fr")) {%>selected<%}%>>French</option>
+                        <option value="de" <%if (currentLocale.getLanguage().equals("de")) {%>selected<%}%>>German</option>
+                        <option value="it" <%if (currentLocale.getLanguage().equals("it")) {%>selected<%}%>>Italian</option>
+                        <option value="jp" <%if (currentLocale.getLanguage().equals("jp")) {%>selected<%}%>>Japanese</option>
+                        <option value="ru" <%if (currentLocale.getLanguage().equals("ru")) {%>selected<%}%>>Russian</option>
+                    </select>
+                </form>
                 <form id="logOutButton" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="logout"/>
-                    <input class="button" type="submit" value="Log Out"/>
+                    <input class="button" type="submit" value="<%=messages.getString("logoutVar")%>"/>
                 </form>
             </div>
         </header>
@@ -107,6 +121,9 @@
                     <%for (Song s : p.getPlaylistContents()) {%>
                     <li class="panel listing songListing">
                         <div class="listingRight">
+                            <svg width="40" height="40" viewBox="0 0 100 100" onclick='stream(<%=s.getSongId()%>);'>
+                                <polygon class="iconPolyFilled" points="33,25 33,75 80,50"/>
+                            </svg>
                             <form action="UserActionServlet" method="POST">
                                 <input type="hidden" name="action" value="deleteFromPlaylist"/>
                                 <input type="hidden" name="songId" value="<%=s.getSongId()%>"/>
@@ -114,8 +131,28 @@
                                 <input class="button danger" type="submit" value="Remove"/>
                             </form>
                         </div>
-                        <span class="songTitle"><%=s.getTitle()%></span><br/>
-                        <span class="songArtist"><%=s.getArtist()%></span>
+                        <img class="artwork" id="artwork<%=s.getSongId()%>" alt="Artwork for <%=s.getAlbum()%>" src="images/artwork.png"/>
+                        <script>loadArtwork(<%=s.getSongId()%>, $("artwork<%=s.getSongId()%>"))</script>
+                        <%if (s.getTitle() != null && !s.getTitle().isEmpty() && !s.getTitle().equalsIgnoreCase("Title")) {%>
+                            <span class="songTitle"><%=s.getTitle()%>
+                                <%if (s.getUploaded() != null && ((System.currentTimeMillis() - s.getUploaded().getTime()) < 172800000)) {%>
+                                    <span class="newBadge"><%=messages.getString("newVar")%></span>
+                                <%}%>
+
+                            </span><br/>
+                        <%}%>
+                        <%if (s.getArtist() != null && !s.getArtist().isEmpty() && !s.getArtist().equalsIgnoreCase("Artist")) {%>
+                            <span class="songArtist"><%=s.getArtist()%></span><br/>
+                        <%}%>
+                        <%if (s.getAlbum() != null && !s.getAlbum().isEmpty() && !s.getAlbum().equalsIgnoreCase("Album")) {%>
+                            <span class="songAlbum"><%=s.getAlbum()%></span><br/>
+                        <%}%>
+                        <%boolean yearShown = false; if (s.getYear() != 0) { yearShown = true;%>
+                            <span class="songYear"><%=s.getYear()%></span>
+                        <%}%>
+                        <%if (s.getGenre() != null && !s.getGenre().isEmpty() && !s.getGenre().equalsIgnoreCase("Genre")) {%>
+                            <span <%if (yearShown) {%>class="songGenre">&#160;|&#160;<%} else {%>class="songYear"><%}%><%=s.getGenre()%></span>
+                        <%}%>
                     </li>
                     <%}%>
                 </ul>

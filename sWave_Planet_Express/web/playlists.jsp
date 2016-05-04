@@ -126,8 +126,7 @@
                                 <input type="hidden" name="action" value="deletePlaylist"/>
                                 <input type="hidden" name="playlistId" value="<%=p.getPlaylistId()%>"/>
                                 <input class="button danger" type="submit" value="<%=messages.getString("deleteVar")%>"/>
-                            </form><br/>
-                            <button><%=messages.getString("playVar")%></button>
+                            </form>
                         </div>
                         <span class="songTitle"><%=p.getTitle()%></span><br/>
                         <span class="songArtist"><%=messages.getString("songsVar")%>: <%=contents.size()%></span><br/>
