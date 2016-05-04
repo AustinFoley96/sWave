@@ -116,6 +116,7 @@
             
         </header>
         <aside class="panel" id="left_sidebar">
+            <a href="javascript:history.back()"><%=messages.getString("backVar")%></a>
             <div id="visualizer"></div>
         </aside>
         <div id="midsection" class="noPadding">
@@ -123,43 +124,83 @@
             <h2 id="numResultsDisplay"><%if (term == null && songs == null && merch == null && users == null) {%>
                 No Results<%} else {%>
                 Showing <%=songs.size() + merch.size() + users.size()%> Results for "<%=term%>"</h2>
-                <table>
+                <ul id="itemList">
                 <%
                     NumberFormat f = NumberFormat.getCurrencyInstance();
                     for (Song s : songs) {%>
-                    <tr <%if (session.getAttribute("currentSong") != null && ((Song)session.getAttribute("currentSong")).getSongId() == s.getSongId()) {%>class="playing"<%}%>>
-                            <%if (DEBUG) {%>
-                                <td><%=s.getSongId()%></td>
-                            <%}%>
-                            <td><%=s.getTitle()%></td>
-                            <td><%=s.getArtist()%></td>
-                            <td><%=s.getGenre()%></td>
-                            <td><%=s.getYear()%></td>
-                            <td><%=f.format(s.getPrice())%></td>
-                            <td><form action="UserActionServlet" method="POST">
-                                    <input type="hidden" name="action" value="addSongToCart"/>
-                                    <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
-                                    <input type="hidden" name="price" value="<%=s.getPrice()%>"/>
-                                    <input class="button" type="submit" value="Add to Cart"/>
-                                </form>
-                            </td>
-                        </tr>
+                    <li class="panel listing songListing">
+                        <div class="listingRight">
+                            <span class="songPrice"><%=f.format(s.getPrice())%></span>
+                            <form id="add<%=s.getSongId()%>ToCart" style="display:none;" action="UserActionServlet" method="POST">
+                                <input type="hidden" name="action" value="addSongToCart"/>
+                                <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
+                                <input type="hidden" name="price" value="<%=s.getPrice()%>"/>
+                            </form>
+                            <svg style="cursor:pointer;" onclick="$('add<%=s.getSongId()%>ToCart').submit()" width="40" height="40" viewBox="0 0 100 100">
+                                <mask id="mask2" x="0" y="0" width="100" height="100">
+                                    <rect x="0" y="0" width="100" height="100" fill="#fff"/>
+                                    <rect x="32" y="47" width="30" height="5" fill="#000"/>
+                                    <rect x="44" y="35" width="5" height="30" fill="#000"/>
+                                </mask>
+                                <circle class="iconCircleFilled" cx="78" cy="24" r="4"/>
+                                <rect class="iconRectFilled" x="76" y="22" width="4" height="8"/>
+                                <polygon class="iconPolyFilled" points="15,30 25,70 70,70 80,30" mask="url(#mask2)"/>
+                                <rect class="iconRectFilled" x="64" y="65" width="4" height="12"/>
+                                <rect class="iconRectFilled" x="33" y="75" width="37" height="4"/>
+                                <circle class="iconCircleFilled" cx="33" cy="78" r="5"/>
+                                <circle class="iconCircleFilled" cx="67" cy="78" r="5"/>
+                            </svg>
+                            <svg width="40" height="40" viewBox="0 0 100 100" onclick="$('overlay').style.display='block'; $('songId').value='<%=s.getSongId()%>'; $('addToPlaylist').style.display='block';">
+                                <mask id="mask3" x="0" y="0" width="100" height="100">
+                                    <rect x="0" y="0" width="100" height="100" fill="#fff"/>
+                                    <rect x="28.5" y="34.5" width="20" height="5" fill="#000"/>
+                                    <rect x="35.5" y="27" width="5" height="20" fill="#000"/>
+                                </mask>
+                                <rect class="iconRectFilled" x="25" y="22.5" width="50" height="60" mask="url(#mask3)"/>
+                            </svg>
+                            <svg width="40" height="40" viewBox="0 0 100 100" onclick='stream(<%=s.getSongId()%>);'>
+                                <polygon class="iconPolyFilled" points="33,25 33,75 80,50"/>
+                            </svg>
+                        </div>
+                        <img class="artwork" id="artwork<%=s.getSongId()%>" alt="Artwork for <%=s.getAlbum()%>" src="images/artwork.png"/>
+                        <script>loadArtwork(<%=s.getSongId()%>, $("artwork<%=s.getSongId()%>"))</script>
+                        <%if (s.getTitle() != null && !s.getTitle().isEmpty() && !s.getTitle().equalsIgnoreCase("Title")) {%>
+                            <span class="songTitle"><%=s.getTitle()%>
+                                <%if (s.getUploaded() != null && ((System.currentTimeMillis() - s.getUploaded().getTime()) < 172800000)) {%>
+                                    <span class="newBadge"><%=messages.getString("newVar")%></span>
+                                <%}%>
+
+                            </span><br/>
+                        <%}%>
+                        <%if (s.getArtist() != null && !s.getArtist().isEmpty() && !s.getArtist().equalsIgnoreCase("Artist")) {%>
+                            <span class="songArtist"><%=s.getArtist()%></span><br/>
+                        <%}%>
+                        <%if (s.getAlbum() != null && !s.getAlbum().isEmpty() && !s.getAlbum().equalsIgnoreCase("Album")) {%>
+                            <span class="songAlbum"><%=s.getAlbum()%></span><br/>
+                        <%}%>
+                        <%boolean yearShown = false; if (s.getYear() != 0) { yearShown = true;%>
+                            <span class="songYear"><%=s.getYear()%></span>
+                        <%}%>
+                        <%if (s.getGenre() != null && !s.getGenre().isEmpty() && !s.getGenre().equalsIgnoreCase("Genre")) {%>
+                            <span <%if (yearShown) {%>class="songGenre">&#160;|&#160;<%} else {%>class="songYear"><%}%><%=s.getGenre()%></span>
+                        <%}%>
+                    </li>
                 <%} for (Merch m : merch) {%>
-                        <tr>
+                    <li class="panel listing songListing">
+                        <div class="listingRight">
+                            <%=f.format(m.getPrice())%>
+                        </div>
+                        <img class="artwork" alt="<%=messages.getString("pictureOfVar")%> <%=m.getTitle()%>" src="images/merch/<%=m.getMerchId()%>.jpg"/>
+                        <span class="songTitle">
                             <%if (DEBUG) {%>
-                                <td><%=m.getMerchId()%></td>
+                                <%=m.getMerchId()%>
                             <%}%>
-                            <td><%=m.getTitle()%></td>
-                            <td><%=f.format(m.getPrice())%></td>
-                            <td><form action="UserActionServlet" method="POST">
-                                    <input type="hidden" name="action" value="addMerchToCart"/>
-                                    <input type="hidden" name="merchid" value="<%=m.getMerchId()%>"/>
-                                    <input type="hidden" name="price" value="<%=m.getPrice()%>"/>
-                                    <input type="number" value="1" min="1" name="qty"/>
-                                    <input class="button" type="submit" value="Add to Cart"/>
-                                </form>
-                            </td>
-                        </tr>
+                            <%=m.getTitle()%>
+                        </span><br/><br/>
+                        <span class="songArtist">
+                            <a href="product.jsp?item=<%=m.getMerchId()%>"><%=messages.getString("viewItemVar")%></a>
+                        </span>
+                    </li>
                 <%}
                 Friend fnd = null;
                 FriendDao fdao = new FriendDao();
@@ -167,12 +208,8 @@
                 ArrayList<Friend> pending = fdao.getPendingFriendRequests(currentUser.getUserId());
 
                 for (User u : users) {%>
-                    <tr>
-                        <%if (DEBUG) {%>
-                            <td><%=u.getUserId()%></td>
-                        <%}%>
-                        <td><%=u.getUsername()%></td>
-                        <td>
+                    <li class="panel listing songListing">
+                        <div class="listingRight">
                         <%
                             fnd = new Friend(currentUser.getUserId(), u.getUserId());
                             if (friends.contains(fnd) && !pending.contains(fnd)) {%>
@@ -196,10 +233,12 @@
                             <%} else {%>
                                 Pending
                             <%}%>
-                        </td>
-                    </tr>
+                        </div>
+                        <span class="songTitle"><%=u.getFname() + " " + u.getLname()%></span><br/>
+                        <span class="songArtist"><%=u.getUsername()%></span>
+                    </li>
                 <%}%>
-                </table>
+                </ul>
             <%}%>
         </div>
         <%=sWave.UI.footer%>

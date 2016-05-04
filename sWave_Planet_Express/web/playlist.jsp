@@ -57,10 +57,10 @@
         <script src="macgril/js/datetime.js"></script>
         <script src="macgril/js/notifications.js"></script>
         <script src="js/three.min.js"></script>
-        <script src="js/sWaveAudioSystem.js"></script>
-        <script src="js/sWaveScripts.js"></script>
-        <script src="js/ajax_image_loader.js"></script>
-        <script src="js/ajax_streamer.js"></script>
+        <script src="js/audio_system.js"></script>
+        <script src="js/scripts.js"></script>
+        <script src="js/image_loader.js"></script>
+        <script src="js/streamer.js"></script>
         <script src="js/cover_flow.js"></script>
     </head>
     <body onkeypress="checkKey(event)" onload="<%if (currentUser != null) {%>loadUserPicture(<%=currentUser.getUserId()%>, $('userPic')); <%}%>resumePlay(); flow(<%=songs.size()%>);">
@@ -68,7 +68,7 @@
             <%=sWave.Graphics.getLogo()%>
             <nav>
                 <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
-                <a href="playing.jsp">Music</a><a class="currentPageLink" href="shop.jsp">Shop</a><a href="account.jsp">Account</a><a href="about.jsp">About</a>
+                <a class="currentPageLink" href="playing.jsp"><%=messages.getString("musicNavVar")%></a><a href="shop.jsp"><%=messages.getString("shopNavVar")%></a><a href="account.jsp"><%=messages.getString("accountNavVar")%></a><a href="about.jsp"><%=messages.getString("aboutNavVar")%></a>
             </nav>
             <form id="searchBox" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="search"/>

@@ -67,13 +67,14 @@
             <%=sWave.Graphics.getLogo()%>
             <nav>
                 <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
-                <a href="playing.jsp">Music</a><a class="currentPageLink" href="shop.jsp">Shop</a><a href="account.jsp">Account</a><a href="about.jsp">About</a>
+                <a href="playing.jsp"><%=messages.getString("musicNavVar")%></a><a class="currentPageLink" href="shop.jsp"><%=messages.getString("shopNavVar")%></a><a href="account.jsp"><%=messages.getString("accountNavVar")%></a><a href="about.jsp"><%=messages.getString("aboutNavVar")%></a>
             </nav>
             <form id="searchBox" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="search"/>
-                <input type="search" class="text" name="searchterm" placeholder="Search"/>
+                <input type="search" class="text" name="searchterm" placeholder="<%=messages.getString("searchVar")%>"/>
             </form>
             <%=sWave.Graphics.s_cart%>
+            <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
             <div id="userMenu" class="panel">
                 <%if (currentUser != null) {%>
                     <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a><br/><br/>
@@ -82,7 +83,7 @@
                 <a href="account.jsp?view=settings"><%=messages.getString("settingsVar")%></a><br/>
                 <form id="langForm" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="updateDetails"/>
-                    <input type="hidden" name="refPage" value="product.jsp"/>
+                    <input type="hidden" name="refPage" value="product.jsp?item=<%if (request.getParameter("item") != null) {%><%=request.getParameter("item")%><%}%>"/>
                     <select name="lang" onchange="$('langForm').submit()">
                         <option value="en" <%if (currentLocale.getLanguage().equals("en")) {%>selected<%}%>>English</option>
                         <option value="fr" <%if (currentLocale.getLanguage().equals("fr")) {%>selected<%}%>>French</option>
@@ -99,66 +100,64 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
-            <a href="shop.jsp">Back to Shop</a>
-            <a href="cart.jsp">Go to Cart</a>
-            <div id="visualizer"></div>
+            <a href="shop.jsp"><%=messages.getString("goToShopVar")%></a>
+            <a href="cart.jsp"><%=messages.getString("goToCartVar")%></a>
+            <!--<div id="visualizer"></div>-->
         </aside>
         <div id="midsection">
             <div id="midUnderlay" class="panel"></div>
             <%if (m != null) {
                 NumberFormat f = NumberFormat.getCurrencyInstance();%>
                 <%if (m.getTitle().equals("Mug")) {%>
-                <div id="inlineRenderer"></div>
-                <script>
-                function renderInline() {
-				scene	  = new THREE.Scene();
-				container = $("inlineRenderer");
+                    <div id="inlineRenderer"></div>
+                    <script>
+                    function renderInline() {
+                        scene     = new THREE.Scene();
+                        container = $("inlineRenderer");
 
-				camera    = new THREE.PerspectiveCamera(45, 1, 1, 100);
-							camera.position.set(10, 8, 10);
-							camera.lookAt(scene.position);
-							scene.add(camera);
+                                    camera    = new THREE.PerspectiveCamera(45, 1, 1, 100);
+                                                            camera.position.set(10, 8, 10);
+                                                            camera.lookAt(scene.position);
+                                                            scene.add(camera);
 
-				renderer  = new THREE.WebGLRenderer({alpha:true, antialias:true});
-							renderer.setSize(400, 400);
-							renderer.domElement.setAttribute("id","renderCanvas");
-							container.appendChild(renderer.domElement);
+                                    renderer  = new THREE.WebGLRenderer({alpha:true, antialias:true});
+                                                            renderer.setSize(400, 400);
+                                                            renderer.domElement.setAttribute("id","renderCanvas");
+                                                            container.appendChild(renderer.domElement);
 
-				ThreeClock     = new THREE.Clock();
+                                    ThreeClock     = new THREE.Clock();
 
-				var loader = new THREE.OBJMTLLoader();
-				model = null;
-				loader.load("models/mug.obj", "models/mug.mtl", function(object) {object.position.set(3,0,2.2); object.scale.y = 2; object.scale.x = 2; object.scale.z = 2; model = object; addLighting();});
+                                    var loader = new THREE.OBJMTLLoader();
+                                    model = null;
+                                    loader.load("models/mug.obj", "models/mug.mtl", function(object) {object.position.set(3,0,2.2); object.scale.y = 2; object.scale.x = 2; object.scale.z = 2; model = object; addLighting();});
+                                }
+
+                                function addLighting() {
+                                light     = new THREE.DirectionalLight(0xFFFFFF, 0.75);
+                                            light.position.set(300, 300, 300);
+                                            scene.add(light);
+
+                                light2    = new THREE.DirectionalLight(0xFFFFFF, 0.8);
+                                            light2.position.set(-300, 300, -300);
+                                            scene.add(light2);
+
+                                scene.add(model);
+                                inlineAnimate();
                             }
-                            
-                            function addLighting() {
-                            light     = new THREE.DirectionalLight(0xFFFFFF, 0.75);
-                                        light.position.set(300, 300, 300);
-                                        scene.add(light);
 
-                            light2    = new THREE.DirectionalLight(0xFFFFFF, 0.8);
-                                        light2.position.set(-300, 300, -300);
-                                        scene.add(light2);
-                            
-                            scene.add(model);
-                            inlineAnimate();
-                        }
-
-			function inlineAnimate() {
-					delta           =  ThreeClock.getDelta();
-					model.rotation.y -= 0.02;
-					//OBJECT.rotation.y += 0.01;
-					setTimeout(requestAnimationFrame(inlineAnimate));
-					renderer.render(scene, camera);
-			}
-                            renderInline();
-                </script>
+                            function inlineAnimate() {
+                                            delta           =  ThreeClock.getDelta();
+                                            model.rotation.y -= 0.02;
+                                            //OBJECT.rotation.y += 0.01;
+                                            setTimeout(requestAnimationFrame(inlineAnimate));
+                                            renderer.render(scene, camera);
+                            }
+                                renderInline();
+                    </script>
                 <%} else {%>
                     <img style="float:left;" width="200" height="200" src="images/merch/<%=m.getMerchId()%>.jpg" alt="Picture of <%=m.getTitle()%>"/>
                 <%}%>
-                <div id="inlineRenderer">
-                </div>
-                <div id="productInfo">
+                <div id="productInfo" style="margin-left:0px; margin-top:<%if (m.getTitle().equals("Mug")) {%>400<%} else {%>220<%}%>px;">
                     <h2><%=m.getTitle()%></h2>
                     <span><%=messages.getString("priceVar")%>: <%=f.format(m.getPrice())%></span>
                     <form action="UserActionServlet" method="POST">

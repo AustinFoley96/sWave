@@ -10,7 +10,7 @@ public class Server {
     
     public static boolean IS_SERVER = false;
 
-    public static boolean DEBUGGING = true;
+    public static boolean DEBUGGING = false;
     public static boolean TESTING   = false;
 
     private static final boolean HAS_SSL  = false;

@@ -69,19 +69,18 @@
         </aside>
         <div id="midsection">
             <div id="midUnderlay" class="panel"></div>
-            <h1>Project sWave</h1>
+            <img src="images/logo.png"/>
             <h3><%=messages.getString("broughtVar")%></h3>
-            <%=messages.getString("planetExpressIsVar")%>:
+            <img style="float:left; width:120px; height:120px; margin-right:40px;" src="images/team_logo.png"/>
             <ul>
-                <li>Austin Foley</li>
-                <li>Brian Millar</li>
-                <li>Philip Carey</li>
+                <li style="margin-top:10px;">Austin Foley</li>
+                <li style="margin-top:10px;">Brian Millar</li>
+                <li style="margin-top:10px;">Philip Carey</li>
             </ul>
-            <button onclick="notify($('notifier'), 'Hello World, This is a Test m9!', 10000)">Test</button>
         </div>
         <%=sWave.UI.footer%>
         <div id="notifier" class="panel"></div>
-        <div id="wallpaper"></div>
+        <div id="wallpaper" style="background-image:URL('images/gource.jpg');"></div>
     </body>
 </html>
 

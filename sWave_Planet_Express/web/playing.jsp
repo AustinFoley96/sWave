@@ -65,7 +65,7 @@
                 <a href="account.jsp?view=settings"><%=messages.getString("settingsVar")%></a><br/>
                 <form id="langForm" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="updateDetails"/>
-                    <input type="hidden" name="refPage" value="playlists.jsp"/>
+                    <input type="hidden" name="refPage" value="playing.jsp"/>
                     <select name="lang" onchange="$('langForm').submit()">
                         <option value="en" <%if (currentLocale.getLanguage().equals("en")) {%>selected<%}%>>English</option>
                         <option value="fr" <%if (currentLocale.getLanguage().equals("fr")) {%>selected<%}%>>French</option>

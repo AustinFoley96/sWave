@@ -14,7 +14,10 @@ function uploadSongs() {
 
     request.upload.onprogress = function(event) {
         $("uploadProgress").value = (100 / event.total) * event.loaded;
-        $("progressInfo").innerHTML = "Uploaded " + (event.loaded / (1024 * 1024)).toFixed(2) + " of " + (event.total / (1024 * 1024)).toFixed(2) + " MB.";
+        if (!(event.loaded === event.total))
+            $("progressInfo").innerHTML = "Uploaded " + (event.loaded / (1024 * 1024)).toFixed(2) + " of " + (event.total / (1024 * 1024)).toFixed(2) + " MB.";
+        else
+            $("progressInfo").innerHTML = "Processing...";
     };
 
     request.upload.onload = function(event) {
